@@ -1,18 +1,18 @@
 # Kerbal Space Program
-# SIROCCO REUSABLE LIFTER FAMILY
-## capable to Vertical Take-Off and Vertical Landing (VTVL) powered by kOS 
+# SIROCCO REUSABLE* LIFTER FAMILY
+### * - VTVL (Vertical Take-Off and Vertical Landing), powered by kOS
 
 Sirocco is a two stages lifter with re-usable booster (first stage).  
 
 Sirocco family use Russian engines from RealEngines mod pack and come in various versions:
 
-Sirocco I - may lift up to 3.5T to LKO (150km)
-Sirocco IV - may lift up to 20T to LKO (150km) 
-Sirocco V - under development
-Sirocco VII - under development
-Sirocco X - under development
+- **Sirocco I - may lift up to 3.5T to LKO (150km)**
+- **Sirocco IV - may lift up to 20T to LKO (150km)** 
+- Sirocco V - under development
+- Sirocco VII - under development
+- Sirocco X - under development
 
-You may set desired orbit (altitude, inclination and LAN) and landing site (none/RTLS/VL@target). 
+##You may set desired orbit (altitude, inclination and LAN) and landing site (none/RTLS/VL@target).## 
 
 ### Requirement Mods:
 1. kOS - https://ksp-kos.github.io/KOS/downloads_links.html
