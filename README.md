@@ -1,6 +1,6 @@
 # Kerbal Space Program
 # SIROCCO REUSABLE LIFTER FAMILY
-capable to Vertical Take-Off and Vertical Landing (VTVL) powered by kOS 
+## capable to Vertical Take-Off and Vertical Landing (VTVL) powered by kOS 
 
 Sirocco is a two stages lifter with re-usable booster (first stage).  
 
@@ -14,22 +14,22 @@ Sirocco X - under development
 
 You may set desired orbit (altitude, inclination and LAN) and landing site (none/RTLS/VL@target). 
 
-Requirement Mods:
+### Requirement Mods:
 1. kOS - https://ksp-kos.github.io/KOS/downloads_links.html
 2. Trajectories - https://github.com/neuoy/KSPTrajectories/releases
 3. LaserDist - https://github.com/Dunbaratu/LaserDist/releases
 4. Kerbal Reusability Expansion - https://spacedock.info/mod/841/Kerbal%20Reusability%20Expansion
 
-Installation:
+### Installation:
 1. Copy "script" folder to your /KSP/Ships folder as is.
 2. Copy *.craft files from "VAB" to VAB folder under your saves folder. 
 3. If you need barge you may copy "Big Barge.craft" to your SPH folder. You have to manually put this craft to desired location. Auto-script not implemented yet.
 
-Pre-launch steps:
+### Pre-launch steps:
 1. Check boot_Sirocco#_booster.ks for booster configuration: Landing options, MECO etc. Just follow comments
 2. Ckeck boot_Sirocco#_upperstage.ks for overall launch configuration such as Orbit Altitude, Inclination, LAN
 
-Launch:
+### Launch:
 0. If you decide to use landing site difference from the Launch site (barge as an example) - select it as target.
 1. Hit Abort to start launch sequence. Both terminals will open. First one for 1st stage, booster and second one for upper stage. 
 2. Depending of your orbital parameters script will wait for launch window (inclination and LAN). As soon it became reasonable close to ideal time - 10 seconds launch sequence will begin. Remeber, that inclination may be not less than launch site latitude.
