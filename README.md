@@ -20,25 +20,28 @@ Installation:
 3. If you need barge you may copy "Big Barge.craft" to your SPH folder. You have to manually put this craft to desired location. Auto-script not implemented yet.
 
 Pre-launch steps:
-	1. Check boot_Sirocco#_booster.ks for booster configuration: Landing options, MECO etc. Just follow comments
-	2. Ckeck boot_Sirocco#_upperstage.ks for overall launch configuration such as Orbit Altitude, Inclination, LAN
+1. Check boot_Sirocco#_booster.ks for booster configuration: Landing options, MECO etc. Just follow comments
+2. Ckeck boot_Sirocco#_upperstage.ks for overall launch configuration such as Orbit Altitude, Inclination, LAN
+
 Launch:
-	0. If you decide to use landing site difference from the Launch site (barge as an example) - select it as target.
-	1. Hit Abort to start launch sequence. Both terminals will open. First one for 1st stage, booster and second one for upper stage. 
-	2. Depending of your orbital parameters script will wait for launch window (inclination and LAN). As soon it became reasonable close to ideal time - 10 seconds launch sequence will begin. Remeber, that inclination may be not less than launch site latitude.
+0. If you decide to use landing site difference from the Launch site (barge as an example) - select it as target.
+1. Hit Abort to start launch sequence. Both terminals will open. First one for 1st stage, booster and second one for upper stage. 
+2. Depending of your orbital parameters script will wait for launch window (inclination and LAN). As soon it became reasonable close to ideal time - 10 seconds launch sequence will begin. Remeber, that inclination may be not less than launch site latitude.
+
 Ascending, 1st stage:
-	1. After lift-off script wait until rocket will hit 60m/s and start pitching over. After passing 100m/s auto-throttle will start reduce throttle leveler to reach optimum airspeed during initial ascending up to 10 km to reduce air drag looses. 
-	2. Keep your eyes on MECO sections - when Fuel cut-off amount: reach Amount of fuel left: script will cut-off main engines and start staging sequence. 
-	During that moment you may switch from upper stage to booster and leave upper stage continue ascending in fully automatic mode up to Apoapsis. Booster for returning back to launch site (or landing at barge etc) REQUIRED to keep you focused (active vessel) on 1st stage (requirements came from Trajectories mod states). Normally upper stage will reach Apoapsis and need your attentions in couple of minutes, so you have enough time to follow Booster and switch to Upper stage after booster successfully landed. Anyway, I’m strongly recommend to use FMRS mod to be able switch between two stages.
+1. After lift-off script wait until rocket will hit 60m/s and start pitching over. After passing 100m/s auto-throttle will start reduce throttle leveler to reach optimum airspeed during initial ascending up to 10 km to reduce air drag looses. 
+2. Keep your eyes on MECO sections - when Fuel cut-off amount: reach Amount of fuel left: script will cut-off main engines and start staging sequence. During that moment you may switch from upper stage to booster and leave upper stage continue ascending in fully automatic mode up to Apoapsis. Booster for returning back to launch site (or landing at barge etc) REQUIRED to keep you focused (active vessel) on 1st stage (requirements came from Trajectories mod states). Normally upper stage will reach Apoapsis and need your attentions in couple of minutes, so you have enough time to follow Booster and switch to Upper stage after booster successfully landed. Anyway, I’m strongly recommend to use FMRS mod to be able switch between two stages.
+
 Returning of 1st stage "Booster" to the launch or other landing site:
-	1. After separation, Booster will flip over, point to the launch site and start burning with central engine only. After this burn, fuel tank usually mostly empty, except just a few drops (120-160 units). In normal condition it’s enough to pointing with RCS and for suicide burn just at the landing site. If no - check your parameters in boot_Sirocco#_booster.ks at MECO section. 
-	2. During descend script will use only aerodynamics, no RCS. Normally Booster will pointing in right direction and start gliding at 35-40km altitude. During descend Booster will oscillating but keeping TargetDist in reasonable numbers (start with 500m and 10-15 at the end). If you want to reduce this oscillating etc - play with numbers in PID-loop section of Sirocco_booster.ks
-	3. Below 2000m ("safe_altitude" in boot_sirocco_booster.ks) script will start control vertical speed and switch on precision landing guidance mode - LaserMod will start measurement distance between rocket and surface. You have to know, that this Laser DO NOT measure distance to the WATER, so in case of barge landing your Booster should be above landing site at that moment. 
-	4. After touch down, script will shutdown engine, reset to default settings KUniverse and halt.
+1. After separation, Booster will flip over, point to the launch site and start burning with central engine only. After this burn, fuel tank usually mostly empty, except just a few drops (120-160 units). In normal condition it’s enough to pointing with RCS and for suicide burn just at the landing site. If no - check your parameters in boot_Sirocco#_booster.ks at MECO section. 
+2. During descend script will use only aerodynamics, no RCS. Normally Booster will pointing in right direction and start gliding at 35-40km altitude. During descend Booster will oscillating but keeping TargetDist in reasonable numbers (start with 500m and 10-15 at the end). If you want to reduce this oscillating etc - play with numbers in PID-loop section of Sirocco_booster.ks
+3. Below 2000m ("safe_altitude" in boot_sirocco_booster.ks) script will start control vertical speed and switch on precision landing guidance mode - LaserMod will start measurement distance between rocket and surface. You have to know, that this Laser DO NOT measure distance to the WATER, so in case of barge landing your Booster should be above landing site at that moment. 
+4. After touch down, script will shutdown engine, reset to default settings KUniverse and halt.
+
 Upper stage:
-	1. After separation, will burn up to reach desired Apoapsis and cut-off engine. During coasting above atmosphere it may loose a bit velocity but will restore it above 70km.
-	2. While Upper stage coasting above atmosphere you may use WARP (check script at that section). Script will calculate estimate data for burn at Apo regarding keeping to parameters - inclination and altitude.
-	3. During this burn script will continuously calculate desired pitch to preserve altitude. After complete script will shut down.
+1. After separation, will burn up to reach desired Apoapsis and cut-off engine. During coasting above atmosphere it may loose a bit velocity but will restore it above 70km.
+2. While Upper stage coasting above atmosphere you may use WARP (check script at that section). Script will calculate estimate data for burn at Apo regarding keeping to parameters - inclination and altitude.
+3. During this burn script will continuously calculate desired pitch to preserve altitude. After complete script will shut down.
 	
 Built in the VAB in KSP version 1.2.2.
 
