@@ -1,6 +1,5 @@
-# KSP
-Kerbal Space Program
-SIROCCO REUSABLE LIFTER FAMILY
+# Kerbal Space Program
+# SIROCCO REUSABLE LIFTER FAMILY
 capable to Vertical Take-Off and Vertical Landing (VTVL) powered by kOS 
 
 Sirocco is a two stages lifter with re-usable booster (first stage).  
