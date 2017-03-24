@@ -22,9 +22,9 @@ function scalarProj { //Scalar projection of two vectors. Find component of a al
 }
 function terrainDist { //GEOPOSITION:TERRAINHEIGHT doesn't see water
 	if SHIP:GEOPOSITION:TERRAINHEIGHT > 0{
-		RETURN SHIP:ALTITUDE - SHIP:GEOPOSITION:TERRAINHEIGHT.
+		RETURN SHIP:ALTITUDE - SHIP:GEOPOSITION:TERRAINHEIGHT-15.
 	} else {
-		RETURN SHIP:ALTITUDE.
+		RETURN SHIP:ALTITUDE-15.
 	}
 }
 

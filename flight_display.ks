@@ -3,8 +3,6 @@
 
 set terminal:width to 60.
 set terminal:height to 50.
-lock UpperTank to ship:partstagged("UpperTank")[0]. // stage 1 fuel tank(s)
-lock FuelLeft to UpperTank:resources[0]:amount. 
 
 function displayFlightData {
 
@@ -31,13 +29,16 @@ print "                                                           "													
 }
 
 function displayLaunchData {
+// lock UpperTank to ship:partstagged("Upper-Tank")[0]. // stage 1 fuel tank(s)
+//lock UpperFuelLeft to UpperTank:resources[0]:amount. 
+// LOCK lqdFuel to FuelTank("sirocco-tank","check").
 print "Inclination:             " + round(ORBIT:INCLINATION,1)																AT(3,18).
 print "Target Heading:          " + round(head, 2) + "               "														at (3,19).
 print "Target Pitch:            " + round(pitch, 2) + "               "															at (3,20).
 print "Target Apoapsis:         " + round(orbAlt / 1000) + "km               "											at (3,21).
 print "Current Apoapsis:        " + round(ship:apoapsis / 1000, 1) + "km in " + round(eta:apoapsis, 0) + "sec"			at (3,22).
 print "L. A. N. :               " + round(ORBIT:LAN) 																		at (3,23).
-print "Amount of fuel left:     " + round(FuelLeft, 1) + "  	                   "   													at (3,24).
+print "Amount of fuel left:     " + round(FuelTank(UpperStage_tag,"check"), 1) + "  	                   "   													at (3,24).
 print "dV left:                 " + round(deltav(), 1) + " m/s                     "														at (3,25).
 print "Q      :                 " + round(ship:q,1)                                                                       			at (3,26).
 //print "-----------------------------------------------------------"																at (1,23).
@@ -65,7 +66,7 @@ print "Apoapsis:                " + round(Ship:Orbit:Apoapsis,0) + "m           
 print "Periapsis:               " + round(Ship:Orbit:Periapsis,0) + "m                 "							at (3,20).
 print "Eccentricity:           " + round(Ship:Orbit:Eccentricity,2) + "                  "							at (3,21).
 print "L. A. N. :               " + round(ORBIT:LAN) 																		at (3,22).
-print "Amount of fuel left:     " + round(FuelLeft, 1) + "  	                   "   													at (3,23).
+print "Amount of fuel left:     " + round(FuelTank(UpperStage_tag,"check"), 1) + "  	                   "   													at (3,23).
 print "dV left:                 " + round(deltav(), 1) + " m/s                     "														at (3,24).
 print "                                                           "																at (1,25).
 print "-----------------------------------------------------------"																at (1,26).

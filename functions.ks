@@ -164,6 +164,43 @@ FUNCTION EngThrustIsp
 	RETURN LIST(0, 0).	
 }
 
+function FuelTank //check fuel amount, open/close fuel valve
+{
+	parameter
+		stage_tag, //tag for fuel tank
+		command. //check/close/open
+		
+	local F1 is 0.
+	local stage_tag_list is ship:partstagged(stage_tag).
+	local stage_fuel is list().
+	local stage_fuel_size is stage_fuel:length.
+	local tank is 0.
+	local tank1 is 0.
+	
+	for parts in stage_tag_list{ //collect all tanks to list stage_fuel (like lqdFuel)
+		stage_fuel:add(stage_tag_list[tank]:resources).
+		set tank to tank +1.
+	}
+	
+	set stage_fuel_size to stage_fuel:length.
+
+	until tank1 = stage_fuel_size {	
+		for res in stage_fuel[tank1]{
+			if res:name = "LiquidFuel" {			
+				if command = "check" { 
+					set F1 to F1 + res:amount.  //F1 = total fuel amount in all tanks
+				} else if command = "close" {
+					set res:enabled to false. //close fuel valve
+				} else if command = "open" {
+					set res:enabled to true. //open fuel valve					
+				}
+			}
+		}
+		set tank1 to tank1 + 1.
+	}
+	if command = "check" { return F1. }
+}
+
 function SetKUniverse
 {
 	set config:ipu to 500.
