@@ -14,6 +14,7 @@ Sirocco VII - under development
 Sirocco X - under development
 
 You may set desired orbit (altitude, inclination and LAN) and landing site (none/RTLS/VL@target). 
+
 Requirement Mods:
 1. kOS - https://ksp-kos.github.io/KOS/downloads_links.html
 2. Trajectories - https://github.com/neuoy/KSPTrajectories/releases
