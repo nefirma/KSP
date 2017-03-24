@@ -1,6 +1,7 @@
 # KSP
 Kerbal Space Program
-Sirocco VTVL lifter family
+SIROCCO REUSABLE LIFTER FAMILY
+capable to Vertical Take-Off and Vertical Landing (VTVL) powered by kOS 
 
 Sirocco is a two stages lifter with re-usable booster (first stage).  
 
@@ -13,6 +14,11 @@ Sirocco VII - under development
 Sirocco X - under development
 
 You may set desired orbit (altitude, inclination and LAN) and landing site (none/RTLS/VL@target). 
+Requirement Mods:
+1. kOS - https://ksp-kos.github.io/KOS/downloads_links.html
+2. Trajectories - https://github.com/neuoy/KSPTrajectories/releases
+3. LaserDist - https://github.com/Dunbaratu/LaserDist/releases
+4. Kerbal Reusability Expansion - https://spacedock.info/mod/841/Kerbal%20Reusability%20Expansion
 
 Installation:
 1. Copy "script" folder to your /KSP/Ships folder as is.
