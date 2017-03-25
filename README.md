@@ -8,8 +8,8 @@ Sirocco is a two stages lifter with re-usable booster (first stage).
 
 Sirocco family use Russian engines from RealEngines mod pack and come in various versions:
 
-- **Sirocco I - may lift up to 3.5T to LKO (150km)**
-- **Sirocco IV - may lift up to 20T to LKO (150km)** 
+- **Sirocco I - may lift up to 3.5T to LKO (150km) for £2100/t**
+- **Sirocco IV - may lift up to 20T to LKO (150km) for £530/t** 
 - Sirocco V - under development
 - Sirocco VII - under development
 - Sirocco X - under development
