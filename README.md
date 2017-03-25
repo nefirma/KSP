@@ -10,7 +10,7 @@ Sirocco family use Russian engines from RealEngines mod pack and come in various
 
 - **Sirocco I - may lift up to 3.5T to LKO (150km) for £2100/t**
 - **Sirocco IV - may lift up to 20T to LKO (150km) for £530/t** 
-- Sirocco V - under development
+- **Sirocco V - may lift up to 50T to LKO (150km) for £580/t** 
 - Sirocco VII - under development
 - Sirocco X - under development
 
