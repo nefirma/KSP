@@ -138,37 +138,111 @@ FUNCTION getOrbitAngle { //orbital angle relative to the north pole at current l
 //EngThrustIsp return total thrust and mean ISP for all active engines
 FUNCTION EngThrustIsp
 {
-  set ens to list().
-  ens:clear.
-  set ens_thrust to 0.
-  set ens_isp to 0.
+	set ens to list().
+	ens:clear.
+	set ens_thrust to 0.
+	set ens_isp to 0.
 
-  list engines in myengines.
-	
-  for en in myengines {
-    if en:ignition = true and en:flameout = false {
-      ens:add(en).
-    }
-  }
+	list engines in myengines.
+		
+	for en in myengines {
+		if en:ignition = true and en:flameout = false {
+			ens:add(en).
+		}
+	}
 	//collect thrust and ISP
-  for en in ens {
-    set ens_thrust to ens_thrust + en:availablethrust.
-    set ens_isp to ens_isp + en:isp.
-  }
-  //return total thrust and mean ISP
-  IF ens:length>0
-	RETURN LIST(ens_thrust, ens_isp/ens:length).
-  ELSE	
-	RETURN LIST(0, 0).	
+	for en in ens {
+		set ens_thrust to ens_thrust + en:availablethrust.
+		set ens_isp to ens_isp + en:isp.
+	}
+	//return total thrust and mean ISP
+	if ens:length>0 { 
+		return list(ens_thrust, ens_isp/ens:length).
+	} else {	
+		return list(0, 0).	
+	}
 }
+
+function booster_ISP //return mean ISP in booster stage with landing engines only.
+{
+
+	local stage_engines is list().	
+	local eng is 0.
+	local eng_isp is 0.
+	
+	set stage_engines to ship:partstagged(landing_engines_tag).
+
+	for eng in stage_engines {
+		set eng_isp to eng_isp + eng:isp.  //total ISP of landing engines
+	}	
+	return eng_isp/stage_engines:length. 
+}
+
+FUNCTION deltaVbooster //for booster!
+{   
+    // fuel name list
+    LOCAL fuels IS list().
+    fuels:ADD("LiquidFuel").
+    fuels:ADD("Oxidizer").
+    fuels:ADD("SolidFuel").
+    fuels:ADD("MonoPropellant").
+
+    // fuel density list (order must match name list)
+    LOCAL fuelsDensity IS list().
+    fuelsDensity:ADD(0.005).
+    fuelsDensity:ADD(0.005).
+    fuelsDensity:ADD(0.0075).
+    fuelsDensity:ADD(0.004).
+
+    // initialize fuel mass sums
+    LOCAL fuelMass IS 0.
+
+    // calculate total fuel mass
+    FOR r IN STAGE:RESOURCES
+    {
+        LOCAL iter is 0.
+        FOR f in fuels
+        {
+            IF f = r:NAME
+            {
+                SET fuelMass TO fuelMass + fuelsDensity[iter]*r:AMOUNT.
+            }.
+            SET iter TO iter+1.
+        }.
+    }.  
+
+    // thrust weighted average isp
+    LOCAL thrustTotal IS 0.
+    LOCAL mDotTotal IS 0.
+//    LIST ENGINES IN engList. 
+	set engList to ship:partstagged(landing_engines_tag).	
+    FOR eng in engList
+    {
+        IF eng:IGNITION
+        {
+            LOCAL t IS eng:maxthrust*eng:thrustlimit/100. // if multi-engine with different thrust limiters
+            SET thrustTotal TO thrustTotal + t.
+            IF eng:ISP = 0 SET mDotTotal TO 1. // shouldn't be possible, but ensure avoiding divide by 0
+            ELSE SET mDotTotal TO mDotTotal + t / eng:ISP.
+        }.
+    }.
+    IF mDotTotal = 0 LOCAL avgIsp IS 0.
+    ELSE LOCAL avgIsp IS thrustTotal/mDotTotal.
+
+    // deltaV calculation as Isp*g0*ln(m0/m1).
+    LOCAL deltaV IS avgIsp*9.81*ln(booster_drymass()+FuelTank(Booster_tag,"mass")/booster_drymass()).//ln(SHIP:MASS / (SHIP:MASS-fuelMass)).
+
+	RETURN deltaV.
+}.
 
 function FuelTank //check fuel amount, open/close fuel valve
 {
 	parameter
 		stage_tag, //tag for fuel tank
-		command. //check/close/open
-		
-	local F1 is 0.
+		command. //check/close/open/mass
+	local Fa is 0. //amount of fuel
+	local FM is 0. //mass of fuel
+	local OxM is 0. //mass of oxidizer
 	local stage_tag_list is ship:partstagged(stage_tag).
 	local stage_fuel is list().
 	local stage_fuel_size is stage_fuel:length.
@@ -184,19 +258,41 @@ function FuelTank //check fuel amount, open/close fuel valve
 
 	until tank1 = stage_fuel_size {	
 		for res in stage_fuel[tank1]{
-			if res:name = "LiquidFuel" {			
+			if res:name = fuel_type {			
 				if command = "check" { 
-					set F1 to F1 + res:amount.  //F1 = total fuel amount in all tanks
+					set Fa to Fa + res:amount.  //F1 = total fuel amount in all tanks
 				} else if command = "close" {
 					set res:enabled to false. //close fuel valve
 				} else if command = "open" {
 					set res:enabled to true. //open fuel valve					
+				} else if command = "mass" { 
+					set FM to FM + (res:amount)*(res:density).  //FM = total fuel amount in all tanks
 				}
 			}
+			if res:name = oxidizer_type {			
+				if command = "mass" { 
+					set OxM to OxM + (res:amount)*(res:density).  //OxM = total fuel amount in all tanks
+				}
+			}			
 		}
 		set tank1 to tank1 + 1.
 	}
-	if command = "check" { return F1. }
+	if command = "check" { return Fa.
+	} else if command = "mass" { return FM+OxM. }.
+}
+
+function booster_drymass
+{
+	local current_stage is stage:number. 
+	local all_parts is 0.
+	local M is 0. //total drymass
+	list parts in all_parts.
+	for part in all_parts {
+		if part:stage = current_stage {
+			set M to M + part:drymass.
+		}
+	}
+	return M. 
 }
 
 function SetKUniverse

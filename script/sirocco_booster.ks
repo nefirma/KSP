@@ -5,6 +5,7 @@ clearscreen.
 
 set config:ipu to 500. //setting ipu for kOS CPU
 wait 0.01.
+HUDTEXT("Select  TARGET and hit ABORT to begin launch sequence!. ", 10, 1, 30, yellow, false).
 wait until Abort. // The program will wait until you press the Abort button to start 
 
 //configuration
@@ -38,9 +39,6 @@ if not has_file("functions.ks") {
 if not has_file("land_lib.ks") {
 	copypath("0:/land_lib.ks","").
 }
-//if not has_file("settings.ks") {
-//	copypath("0:/settings.ks","").
-//}
 
 //run settings. 
 run lib_navball. // running libraries
@@ -105,7 +103,13 @@ if landingSite = 0 {
 	lock MECO to 50 + (groundspeed * MECOcoef). // amount of fuel needed for boostback and landing. 
 }
 
-when alt:radar > 1000 and lqdFuel <= MECO then { FuelTank(Booster_tag,"close"). HUDTEXT("Booster MECO. ", 10, 1, 30, yellow, false).	wait 1. } // cutting liquid fuel when MECO reached (this cause launch script to stage)
+//when alt:radar > 1000 and lqdFuel <= MECO then { FuelTank(Booster_tag,"close"). HUDTEXT("Booster MECO. ", 10, 1, 30, yellow, false).	wait 1. } // cutting liquid fuel when MECO reached (this cause launch script to stage)
+when alt:radar > 1000 and lqdFuel <= MECO then { 
+	FuelTank(Booster_tag,"close"). HUDTEXT("Booster MECO. ", 10, 1, 30, yellow, false).
+	wait 1.
+} // cutting liquid fuel when MECO reached (this cause launch script to stage)
+
+
 when alt:radar < 200 and runmode > 2 then { legs on. } // deploying landing legs
 
 // preparing final touch
@@ -178,7 +182,9 @@ set startT to time:seconds.
 set oldT to startT.
 set prevPos to ship:geoposition.
 
-
+//local booster_dV is 0.
+//lock booster_dV to booster_ISP()*9.80665*ln(booster_drymass()+FuelTank(Booster_tag,"mass")/booster_drymass()). //remain dV in booster stage for landing etc.
+//lock booster_dV to deltaVstage().
 
 wait 0.001. // waiting 1 physics tick to avoid errors
 
@@ -200,7 +206,11 @@ until runmode = 0 {
 
 		print "Amount of fuel left: " + round(lqdFuel, 2) + "          " at (3,20).
 		print "Fuel cut-off amount: " + round(MECO, 2) + "          " at (3,21).
-						
+//		print "Fuel+oxidizer mass: " + round(FuelTank(Booster_tag,"mass"), 3) + "          " at (3,22).
+//		print "Booster ISP: " + round(booster_ISP(), 3) + "          " at (3,24).			
+//		print "Booster DryMass: " + round(booster_drymass(), 3) + "          " at (3,25).	
+//		print "Booster  dV: " + round(deltaVbooster(), 1) + "          " at (3,27).			
+		
 		if engineFlameout() {  // check flameout, indicating staging
 			set stageApo to ship:apoapsis.
 			if stageApo < 20000 { set desPitch to 35. }
@@ -217,7 +227,7 @@ until runmode = 0 {
 		sas off.
 		set SHIP:CONTROL:NEUTRALIZE to true.		
 		wait 0.2.
-//		toggle AG1. //shutdown outer engines if it's suitable
+		toggle AG1. //shutdown outer engines if it's suitable
 		lock throttle to 0.1. 
 		lock steering to heading(landingSite:heading, -30). 
 		HUDTEXT("Booster separation complete. ", 10, 1, 30, yellow, false).

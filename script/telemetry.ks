@@ -87,3 +87,4 @@ function timeToAltitude
 	parameter desiredAltitude.
 	return (-verticalspeed - sqrt(verticalspeed^2-(2 *(-gravity(ship:altitude))*(ship:altitude - desiredAltitude))))/((-gravity(ship:altitude))).
 }
+
