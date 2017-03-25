@@ -135,29 +135,27 @@ FUNCTION getOrbitAngle { //orbital angle relative to the north pole at current l
 	ELSE { RETURN 90. }
 }
 
-//EngThrustIsp возвращает суммарную тягу и средний Isp по всем активным двигателям.
+//EngThrustIsp return total thrust and mean ISP for all active engines
 FUNCTION EngThrustIsp
 {
-	//создаем пустой лист ens
   set ens to list().
   ens:clear.
   set ens_thrust to 0.
   set ens_isp to 0.
-	//запихиваем все движки в лист myengines
+
   list engines in myengines.
 	
-	//забираем все активные движки из myengines в ens.
   for en in myengines {
     if en:ignition = true and en:flameout = false {
       ens:add(en).
     }
   }
-	//собираем суммарную тягу и Isp по всем активным движкам
+	//collect thrust and ISP
   for en in ens {
     set ens_thrust to ens_thrust + en:availablethrust.
     set ens_isp to ens_isp + en:isp.
   }
-  //Тягу возвращаем суммарную, а Isp средний.
+  //return total thrust and mean ISP
   IF ens:length>0
 	RETURN LIST(ens_thrust, ens_isp/ens:length).
   ELSE	
