@@ -1,8 +1,8 @@
 ship = Sirocco IV mk2
 version = 1.2.2
-description = 20t to 150km, RTLS
+description = ###Description¨- **Check project page for kOS script - https:
 type = VAB
-size = 13.5449991,38.8878708,13.5450001
+size = 13.5449991,38.9226151,13.5450001
 PART
 {
 	part = probeCoreOcto2_4293372286
@@ -230,7 +230,7 @@ PART
 		VSLCONFIG
 		{
 			VesselID = 00000000-0000-0000-0000-000000000000
-			Name = Sirocco IV
+			Name = Sirocco IV mk2
 			Enabled = False
 			GUIVisible = False
 			ActiveTab = 0
@@ -359,13 +359,6 @@ PART
 							Limit = 1
 							role = MAIN
 						}
-						3978717611
-						{
-							Name = MRS Decoupler, 2.5m Stack, Low Profile
-							On = False
-							Limit = 1
-							role = MAIN
-						}
 						660099936
 						{
 							Name = RD170
@@ -373,28 +366,28 @@ PART
 							Limit = 1
 							role = MAIN
 						}
-						3527610832
+						2683138961
 						{
 							Name = Sepratron I (Sepratron I)
 							On = False
 							Limit = 1
 							role = MAIN
 						}
-						3852107046
+						3007635175
 						{
 							Name = Sepratron I (Sepratron I)
 							On = False
 							Limit = 1
 							role = MAIN
 						}
-						2562076906
+						2153252681
 						{
 							Name = Sepratron I (Sepratron I)
 							On = False
 							Limit = 1
 							role = MAIN
 						}
-						3855431152
+						3446606927
 						{
 							Name = Sepratron I (Sepratron I)
 							On = False
@@ -486,7 +479,7 @@ PART
 	{
 		name = RasterPropMonitorComputer
 		isEnabled = True
-		vesselDescription = 
+		vesselDescription = ###Description$$$- **Check project page for kOS script - https:
 		RPMCid = 
 		stagingEnabled = True
 		EVENTS
@@ -954,6 +947,32 @@ PART
 	}
 	MODULE
 	{
+		name = InterstellarFuelSwitch
+		isEnabled = True
+		selectedTankSetup = 0
+		inFlightTankSetup = -1
+		configuredAmounts = 359.999969482422,440,
+		configuredFlowStates = True,True,
+		selectedTankSetupTxt = LiquidFuel+Oxidizer
+		configLoaded = True
+		initialTankSetup = LiquidFuel;Oxidizer
+		storedFactorMultiplier = 1
+		storedVolumeMultiplier = 1
+		storedMassMultiplier = 1
+		traceBoiloff = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
 		name = ModuleTankManager
 		isEnabled = True
 		Volume = 4.93827152
@@ -1170,7 +1189,7 @@ PART
 	RESOURCE
 	{
 		name = LiquidFuel
-		amount = 359.99996900000002
+		amount = 359.99996948242188
 		maxAmount = 359.99996948242188
 		flowState = True
 		isTweakable = True
@@ -1219,9 +1238,9 @@ PART
 	link = HotGasThruster-M_4289693036
 	link = HotGasThruster-M_4289692198
 	link = KAL9000_4292692490
-	link = NBdecouplerLowProfile2m_4292308800
+	link = stackDecouplerMini_4292664954
 	attN = top,fuelTank4-2_4286561436
-	attN = bottom,NBdecouplerLowProfile2m_4292308800
+	attN = bottom,stackDecouplerMini_4292664954
 	EVENTS
 	{
 	}
@@ -1394,6 +1413,32 @@ PART
 	}
 	MODULE
 	{
+		name = InterstellarFuelSwitch
+		isEnabled = True
+		selectedTankSetup = 0
+		inFlightTankSetup = -1
+		configuredAmounts = 719.999938964844,880,
+		configuredFlowStates = True,True,
+		selectedTankSetupTxt = LiquidFuel+Oxidizer
+		configLoaded = True
+		initialTankSetup = LiquidFuel;Oxidizer
+		storedFactorMultiplier = 1
+		storedVolumeMultiplier = 1
+		storedMassMultiplier = 1
+		traceBoiloff = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
 		name = ModuleTankManager
 		isEnabled = True
 		Volume = 9.87654305
@@ -1516,8 +1561,8 @@ PART
 	{
 		name = ModuleJettison
 		isEnabled = True
-		isJettisoned = True
-		shroudHideOverride = True
+		isJettisoned = False
+		shroudHideOverride = False
 		stagingEnabled = True
 		EVENTS
 		{
@@ -2032,6 +2077,23 @@ PART
 	}
 	MODULE
 	{
+		name = TestFlightFailure_IgnitionFail
+		isEnabled = True
+		numIgnitions = 0
+		failed = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
 		name = TestFlightFailure_ReducedMaxThrust
 		isEnabled = True
 		failed = False
@@ -2520,6 +2582,23 @@ PART
 		isEnabled = True
 		lastCheck = 0
 		lastReliability = 1
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TestFlightFailure_IgnitionFail
+		isEnabled = True
+		numIgnitions = 0
+		failed = False
 		stagingEnabled = True
 		EVENTS
 		{
@@ -3129,12 +3208,12 @@ PART
 	symMethod = Radial
 	autostrutMode = Off
 	rigidAttachment = False
-	istg = -1
+	istg = 0
 	resPri = 0
 	dstg = 0
-	sidx = -1
-	sqor = -1
-	sepI = -1
+	sidx = 0
+	sqor = 0
+	sepI = 0
 	attm = 0
 	modCost = 145.708984
 	modMass = 0.245708987
@@ -3199,21 +3278,6 @@ PART
 		name = KzFairingBaseResizer
 		isEnabled = True
 		size = 2.5
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = KzFairingBaseShielding
-		isEnabled = True
 		stagingEnabled = True
 		EVENTS
 		{
@@ -3309,6 +3373,27 @@ PART
 		{
 		}
 	}
+	MODULE
+	{
+		name = ModuleDecouple
+		isEnabled = True
+		ejectionForcePercent = 100
+		isDecoupled = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+			DecoupleAction
+			{
+				actionGroup = None
+			}
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
 }
 PART
 {
@@ -3327,7 +3412,7 @@ PART
 	istg = 0
 	resPri = 0
 	dstg = 1
-	sidx = 0
+	sidx = 1
 	sqor = 0
 	sepI = 0
 	attm = 0
@@ -3967,7 +4052,7 @@ PART
 	dstg = 1
 	sidx = 0
 	sqor = 1
-	sepI = -1
+	sepI = 0
 	attm = 0
 	modCost = 1251.05725
 	modMass = 0.270211458
@@ -4099,6 +4184,37 @@ PART
 		{
 		}
 	}
+	MODULE
+	{
+		name = ModuleToggleCrossfeed
+		isEnabled = True
+		crossfeedStatus = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+			ToggleAction
+			{
+				actionGroup = None
+				active = False
+			}
+			EnableAction
+			{
+				actionGroup = None
+				active = False
+			}
+			DisableAction
+			{
+				actionGroup = None
+				active = False
+			}
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
 }
 PART
 {
@@ -4119,7 +4235,7 @@ PART
 	dstg = 1
 	sidx = 0
 	sqor = 1
-	sepI = -1
+	sepI = 0
 	attm = 0
 	modCost = 1251.05725
 	modMass = 0.270211458
@@ -4251,14 +4367,45 @@ PART
 		{
 		}
 	}
+	MODULE
+	{
+		name = ModuleToggleCrossfeed
+		isEnabled = True
+		crossfeedStatus = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+			ToggleAction
+			{
+				actionGroup = None
+				active = False
+			}
+			EnableAction
+			{
+				actionGroup = None
+				active = False
+			}
+			DisableAction
+			{
+				actionGroup = None
+				active = False
+			}
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
 }
 PART
 {
-	part = NBdecouplerLowProfile2m_4292308800
+	part = stackDecouplerMini_4292664954
 	partName = Part
-	pos = -0.883313,28.1444149,0.429800749
+	pos = -0.883313,28.1247959,0.429800749
 	attPos = 0,0,0
-	attPos0 = 0,-1.13750076,0
+	attPos0 = 0,-1.01341057,0
 	rot = 0,0,0,1
 	attRot = 0,0,0,1
 	attRot0 = 0,0,0,1
@@ -4269,12 +4416,12 @@ PART
 	istg = 2
 	resPri = 0
 	dstg = 1
-	sidx = 2
+	sidx = 1
 	sqor = 2
 	sepI = 2
 	attm = 0
-	modCost = -746.927979
-	modMass = -0.398361593
+	modCost = -52.6136627
+	modMass = -0.00806399994
 	modSize = 0,0,0
 	link = trussPiece3x_4289828668
 	attN = bottom,trussPiece3x_4289828668
@@ -4301,40 +4448,6 @@ PART
 		ACTIONS
 		{
 			DecoupleAction
-			{
-				actionGroup = None
-			}
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = ModuleEngines
-		isEnabled = True
-		staged = False
-		flameout = False
-		EngineIgnited = False
-		engineShutdown = False
-		currentThrottle = 0
-		thrustPercentage = 100
-		manuallyOverridden = False
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-			OnAction
-			{
-				actionGroup = None
-			}
-			ShutdownAction
-			{
-				actionGroup = None
-			}
-			ActivateAction
 			{
 				actionGroup = None
 			}
@@ -4430,112 +4543,10 @@ PART
 	{
 		name = TweakScale
 		isEnabled = True
-		currentScale = 0.400000006
-		defaultScale = 2.5
+		currentScale = 0.425000012
+		defaultScale = 0.625
 		defaultTransformScale = (1, 1, 1)
-		DryCost = 2.97369576
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = TestFlightInterop
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = TestFlightCore
-		isEnabled = True
-		operatingTime = 0
-		lastMET = 0
-		initialized = False
-		currentFlightData = 0
-		initialFlightData = 0
-		missionStartTime = 0
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = FlightDataRecorder_Resources
-		isEnabled = True
-		lastRecordedMet = 0
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = TestFlightReliability
-		isEnabled = True
-		lastCheck = 0
-		lastReliability = 1
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = TestFlightFailure_ResourceLeak
-		isEnabled = True
-		isLeaking = False
-		failed = False
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = TestFlightFailure_Explode
-		isEnabled = True
-		failed = False
+		DryCost = 247.386337
 		stagingEnabled = True
 		EVENTS
 		{
@@ -4564,21 +4575,6 @@ PART
 	}
 	MODULE
 	{
-		name = EngineLightEffect
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
 		name = KOSNameTag
 		isEnabled = True
 		nameTag = 
@@ -4593,42 +4589,14 @@ PART
 		{
 		}
 	}
-	MODULE
-	{
-		name = TCAEngineInfo
-		isEnabled = True
-		role = 0
-		group = 0
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	RESOURCE
-	{
-		name = SolidFuel
-		amount = 0.16383999023437401
-		maxAmount = 0.16383999023437401
-		flowState = True
-		isTweakable = True
-		hideFlow = False
-		isVisible = True
-		flowMode = Both
-	}
 }
 PART
 {
 	part = trussPiece3x_4289828668
 	partName = Part
-	pos = -0.883313,27.3747959,0.429800749
-	attPos = 0,0.857370377,0
-	attPos0 = 0,-0.769618988,0
+	pos = -0.883313,27.3400517,0.429800749
+	attPos = 0,0.0287857056,0
+	attPos0 = 0,-0.813529968,0
 	rot = 0,0,0,1
 	attRot = 0,0,0,1
 	attRot0 = 0,0,0,1
@@ -4648,7 +4616,7 @@ PART
 	modSize = 0,0,0
 	link = KzInterstageAdapter2_4290322570
 	attN = bottom,KzInterstageAdapter2_4290322570
-	attN = top,NBdecouplerLowProfile2m_4292308800
+	attN = top,stackDecouplerMini_4292664954
 	EVENTS
 	{
 	}
@@ -4738,7 +4706,7 @@ PART
 {
 	part = KzInterstageAdapter2_4290322570
 	partName = Part
-	pos = -0.883313,26.1771774,0.429800749
+	pos = -0.883313,26.1424332,0.429800749
 	attPos = 0,0,0
 	attPos0 = 0,-1.19761848,0
 	rot = 0,0,0,1
@@ -4751,7 +4719,7 @@ PART
 	istg = 0
 	resPri = 0
 	dstg = 3
-	sidx = 1
+	sidx = 2
 	sqor = 0
 	sepI = 0
 	attm = 0
@@ -4851,21 +4819,6 @@ PART
 			{
 				actionGroup = None
 			}
-		}
-		UPGRADESAPPLIED
-		{
-		}
-	}
-	MODULE
-	{
-		name = KzFairingBaseShielding
-		isEnabled = True
-		stagingEnabled = True
-		EVENTS
-		{
-		}
-		ACTIONS
-		{
 		}
 		UPGRADESAPPLIED
 		{
@@ -4975,7 +4928,7 @@ PART
 {
 	part = probeCoreOcto2_4292951516
 	partName = Part
-	pos = -0.883313,26.1161156,0.429800749
+	pos = -0.883313,26.0813713,0.429800749
 	attPos = 0,0,0
 	attPos0 = 0,-0.0610618591,0
 	rot = 0,0,0,1
@@ -5262,7 +5215,7 @@ PART
 	{
 		name = RasterPropMonitorComputer
 		isEnabled = True
-		vesselDescription = 
+		vesselDescription = ###Description$$$- **Check project page for kOS script - https:
 		RPMCid = 
 		stagingEnabled = True
 		EVENTS
@@ -5310,7 +5263,7 @@ PART
 {
 	part = batteryBank_4292937122
 	partName = Part
-	pos = -0.883313,25.9441986,0.429800749
+	pos = -0.883313,25.9094543,0.429800749
 	attPos = 0,0.127658844,0
 	attPos0 = 0,-0.171916962,0
 	rot = 0,0,0,1
@@ -5535,7 +5488,7 @@ PART
 {
 	part = fuelTank3-2_4290598796
 	partName = Part
-	pos = -0.883313,22.4202385,0.429800749
+	pos = -0.883313,22.3854942,0.429800749
 	attPos = 0,0.336894989,0
 	attPos0 = 0,-3.8608551,0
 	rot = 0,0,0,1
@@ -5724,6 +5677,32 @@ PART
 		defaultScale = 2.5
 		defaultTransformScale = (0, 0, 0)
 		DryCost = 5750
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = InterstellarFuelSwitch
+		isEnabled = True
+		selectedTankSetup = 0
+		inFlightTankSetup = -1
+		configuredAmounts = 2879.99975585938,3520,
+		configuredFlowStates = True,True,
+		selectedTankSetupTxt = LiquidFuel+Oxidizer
+		configLoaded = True
+		initialTankSetup = LiquidFuel;Oxidizer
+		storedFactorMultiplier = 1
+		storedVolumeMultiplier = 1
+		storedMassMultiplier = 1
+		traceBoiloff = False
 		stagingEnabled = True
 		EVENTS
 		{
@@ -5977,7 +5956,7 @@ PART
 {
 	part = KAL9000_4292695852
 	partName = Part
-	pos = -0.883313119,18.6683655,-0.822750807
+	pos = -0.883313119,18.6336212,-0.822750807
 	attPos = 0,-0.0120239258,-0.016498208
 	attPos0 = 1.1920929E-07,-3.73984909,-1.23605335
 	rot = 2.29409324E-07,0.707107246,-2.29408982E-07,-0.707106352
@@ -6189,7 +6168,7 @@ PART
 {
 	part = HotGasThruster-L_4288194004
 	partName = Part
-	pos = -0.883313239,26.1040363,-0.752116442
+	pos = -0.883313239,26.0692921,-0.752116442
 	attPos = 0,0,0
 	attPos0 = -2.38418579E-07,3.68379784,-1.18191719
 	rot = -1,1.70530257E-13,-6.55651093E-07,-2.38924855E-07
@@ -6330,7 +6309,7 @@ PART
 {
 	part = HotGasThruster-L_4288193074
 	partName = Part
-	pos = -0.883312643,26.1040363,1.6117177
+	pos = -0.883312643,26.0692921,1.6117177
 	attPos = 0,0,0
 	attPos0 = 3.57627869E-07,3.68379784,1.18191707
 	rot = -6.55651093E-07,-2.38924855E-07,1,-1.70530257E-13
@@ -6471,7 +6450,7 @@ PART
 {
 	part = TPtank2mL15000_4290825240
 	partName = Part
-	pos = -0.883313,11.1702385,0.429800749
+	pos = -0.883313,11.1354942,0.429800749
 	attPos = 0,0,0
 	attPos0 = 0,-11.25,0
 	rot = 0,0,0,1
@@ -6918,7 +6897,7 @@ PART
 {
 	part = rd170engine_4290777444
 	partName = Part
-	pos = -0.883313,3.38824081,0.429800749
+	pos = -0.883313,3.35349655,0.429800749
 	attPos = 0,0.681119919,0
 	attPos0 = 0,-8.4631176,0
 	rot = 0,0,0,1
@@ -7221,6 +7200,23 @@ PART
 	}
 	MODULE
 	{
+		name = TestFlightFailure_IgnitionFail
+		isEnabled = True
+		numIgnitions = 0
+		failed = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
 		name = TestFlightFailure_ReducedMaxThrust
 		isEnabled = True
 		failed = False
@@ -7324,7 +7320,7 @@ PART
 {
 	part = SpaceXLegs-L_4290748976
 	partName = Part
-	pos = -0.883313358,3.76098442,-0.598202825
+	pos = -0.883313358,3.72624016,-0.598202825
 	attPos = 0,0,0
 	attPos0 = -1.1920929E-07,-7.40925407,-1.02800333
 	rot = 1.63424829E-13,1,-2.36557867E-07,6.55651093E-07
@@ -7565,7 +7561,7 @@ PART
 {
 	part = SpaceXLegs-L_4290748334
 	partName = Part
-	pos = -1.91131663,3.76098442,0.429800987
+	pos = -1.91131663,3.72624016,0.429800987
 	attPos = 0,0,0
 	attPos0 = -1.02800322,-7.40925407,0
 	rot = -1.67271551E-07,0.707107246,-1.67271793E-07,-0.707106352
@@ -7806,7 +7802,7 @@ PART
 {
 	part = SpaceXLegs-L_4290748180
 	partName = Part
-	pos = -0.883312523,3.76098442,1.4578042
+	pos = -0.883312523,3.72624016,1.4578042
 	attPos = 0,0,0
 	attPos0 = 2.38418579E-07,-7.40925407,1.02800333
 	rot = -2.36557867E-07,6.55651093E-07,-1.63424829E-13,-1
@@ -8047,7 +8043,7 @@ PART
 {
 	part = SpaceXLegs-L_4290748026
 	partName = Part
-	pos = 0.144690454,3.76098442,0.429800272
+	pos = 0.144690454,3.72624016,0.429800272
 	attPos = 0,0,0
 	attPos0 = 1.02800322,-7.40925407,-2.38418579E-07
 	rot = -1.67271793E-07,-0.707106352,1.67271551E-07,-0.707107246
@@ -8288,7 +8284,7 @@ PART
 {
 	part = TrunkFin_4289100266
 	partName = Part
-	pos = -1.75346541,5.08558655,-0.440351129
+	pos = -1.75346541,5.05084229,-0.440351129
 	attPos = 0.161148518,-0.914872169,-1.03885126
 	attPos0 = -0.870151997,-6.08465195,-0.870151877
 	rot = 5.6418326E-08,0.382683456,-1.3620587E-07,-0.923879504
@@ -8416,7 +8412,7 @@ PART
 {
 	part = TrunkFin_4290745142
 	partName = Part
-	pos = -1.75346494,5.08558655,1.29995298
+	pos = -1.75346494,5.05084229,1.29995298
 	attPos = 0.161148518,-0.914872169,-1.03885126
 	attPos0 = -0.870151877,-6.08465195,0.870151877
 	rot = -5.64183189E-08,-0.382683337,-1.36205912E-07,-0.923879623
@@ -8544,7 +8540,7 @@ PART
 {
 	part = TrunkFin_4290745092
 	partName = Part
-	pos = -0.0131605864,5.08558655,1.29995251
+	pos = -0.0131605864,5.05084229,1.29995251
 	attPos = 0.161148518,-0.914872169,-1.03885126
 	attPos0 = 0.870152056,-6.08465195,0.870151877
 	rot = -1.36205841E-07,-0.923879504,-5.64183118E-08,-0.382683456
@@ -8672,7 +8668,7 @@ PART
 {
 	part = TrunkFin_4290745042
 	partName = Part
-	pos = -0.0131613612,5.08558655,-0.440351605
+	pos = -0.0131613612,5.05084229,-0.440351605
 	attPos = 0.161148518,-0.914872169,-1.03885126
 	attPos0 = 0.870151758,-6.08465195,-0.870151997
 	rot = -1.36205912E-07,-0.923879623,5.64183189E-08,0.382683337
@@ -8800,7 +8796,7 @@ PART
 {
 	part = distometer500x_4289100186
 	partName = Part
-	pos = -1.79274535,3.59383392,-0.479631305
+	pos = -1.79274535,3.55908966,-0.479631305
 	attPos = 0,0,0
 	attPos0 = -0.909431934,-7.57640457,-0.909431994
 	rot = -0.923879623,-5.64183189E-08,0.382683337,-1.36205912E-07
@@ -8926,7 +8922,7 @@ PART
 {
 	part = HotGasThruster-L_4290626016
 	partName = Part
-	pos = -2.05090547,3.89787483,0.429801226
+	pos = -2.05090547,3.86313057,0.429801226
 	attPos = 0,0,0
 	attPos0 = -1.18244231,-7.27236366,2.38418579E-07
 	rot = -1.98432328E-08,-0.707107306,-1.9843263E-08,0.707106292
@@ -9067,7 +9063,7 @@ PART
 {
 	part = HotGasThruster-L_4290625398
 	partName = Part
-	pos = 0.284279525,3.89787483,0.429800153
+	pos = 0.284279525,3.86313057,0.429800153
 	attPos = 0,0,0
 	attPos0 = 1.18244231,-7.27236366,-3.57627869E-07
 	rot = -1.9843263E-08,0.707106352,1.98432328E-08,0.707107246
@@ -9208,7 +9204,7 @@ PART
 {
 	part = RSBtowerDelta2_4292325808
 	partName = Part
-	pos = 7.16600704,0.823549271,3.14860678
+	pos = 7.16600704,0.788805008,3.14860678
 	attPos = -4.62807083,0.0637302399,-0.553938866
 	attPos0 = 8.04932022,-10.3466892,2.71880603
 	rot = -3.36815802E-08,0.808251083,-5.51241612E-08,-0.588837981
@@ -9242,8 +9238,8 @@ PART
 	{
 		name = LaunchClamp
 		isEnabled = True
-		scaleFactor = 1.10980654
-		height = 8.32354927
+		scaleFactor = 1.10517395
+		height = 8.28880501
 		stagingEnabled = True
 		towerRot = 3.36815802E-08,-0.808251083,5.51241612E-08,-0.588837981
 		EVENTS
@@ -9403,7 +9399,7 @@ PART
 {
 	part = Grid Fin M_4289522094
 	partName = Part
-	pos = -2.11515355,23.7334347,0.429800808
+	pos = -2.11515355,23.6986904,0.429800808
 	attPos = 0.0371003151,0,0
 	attPos0 = -1.23184061,1.31319618,5.96046377E-08
 	rot = -7.58643239E-07,-2.13532568E-14,1,2.80625887E-08
@@ -9589,7 +9585,7 @@ PART
 {
 	part = Grid Fin M_4289520384
 	partName = Part
-	pos = -0.883313,23.727457,1.65961623
+	pos = -0.883313,23.6927128,1.65961623
 	attPos = 0,0,0.0364466906
 	attPos0 = 0,1.30721855,1.22981548
 	rot = 0.707106292,1.67271551E-07,0.707107246,1.67271764E-07
@@ -9775,7 +9771,7 @@ PART
 {
 	part = Grid Fin M_4289520700
 	partName = Part
-	pos = 0.344347537,23.7545567,0.429800808
+	pos = 0.344347537,23.7198124,0.429800808
 	attPos = 0,0,-0.0393741131
 	attPos0 = 1.22766054,1.33431816,5.96046448E-08
 	rot = 1,-2.80625816E-08,7.58643239E-07,-2.26093304E-14
@@ -9961,7 +9957,7 @@ PART
 {
 	part = Grid Fin M_4289520544
 	partName = Part
-	pos = -0.883312881,23.7311745,-0.799177051
+	pos = -0.883312881,23.6964302,-0.799177051
 	attPos = -0.0466554761,0,0
 	attPos0 = 1.1920929E-07,1.31093597,-1.2289778
 	rot = 0.707107246,-1.67271779E-07,-0.707106292,1.67271537E-07
@@ -10147,7 +10143,7 @@ PART
 {
 	part = sepMotor1_4289594144
 	partName = Part
-	pos = -1.3904115,26.4454727,-0.45282793
+	pos = -1.3904115,26.4107285,-0.45282793
 	attPos = 0.0549999475,0,0.0909540653
 	attPos0 = -0.562098444,0.268295288,-0.973582745
 	rot = 0.258302629,-0.060990952,0.963998318,0.016342489
@@ -10160,7 +10156,7 @@ PART
 	istg = 2
 	resPri = 0
 	dstg = 4
-	sidx = 1
+	sidx = 2
 	sqor = 2
 	sepI = 0
 	attm = 1
@@ -10429,6 +10425,23 @@ PART
 		isEnabled = True
 		lastCheck = 0
 		lastReliability = 1
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TestFlightFailure_IgnitionFail
+		isEnabled = True
+		numIgnitions = 0
+		failed = False
 		stagingEnabled = True
 		EVENTS
 		{
@@ -10555,7 +10568,7 @@ PART
 {
 	part = sepMotor1_4292300964
 	partName = Part
-	pos = -1.76594162,26.4454727,0.936899185
+	pos = -1.76594162,26.4107285,0.936899185
 	attPos = 0.0909540653,0,-0.0549998879
 	attPos0 = -0.973582685,0.268295288,0.562098324
 	rot = 0.86429733,-0.0315712243,0.499002218,0.0546829812
@@ -10568,7 +10581,7 @@ PART
 	istg = 2
 	resPri = 0
 	dstg = 4
-	sidx = 1
+	sidx = 2
 	sqor = 2
 	sepI = 0
 	attm = 1
@@ -10837,6 +10850,23 @@ PART
 		isEnabled = True
 		lastCheck = 0
 		lastReliability = 1
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = TestFlightFailure_IgnitionFail
+		isEnabled = True
+		numIgnitions = 0
+		failed = False
 		stagingEnabled = True
 		EVENTS
 		{
@@ -10963,7 +10993,7 @@ PART
 {
 	part = sepMotor1_4292300880
 	partName = Part
-	pos = -0.376214445,26.4454727,1.31242943
+	pos = -0.376214445,26.4107285,1.31242943
 	attPos = -0.0549999475,0,-0.0909540653
 	attPos0 = 0.562098503,0.268295288,0.973582745
 	rot = 0.963998318,0.0163424909,-0.258302659,0.060990952
@@ -10976,7 +11006,7 @@ PART
 	istg = 2
 	resPri = 0
 	dstg = 4
-	sidx = 1
+	sidx = 2
 	sqor = 2
 	sepI = 0
 	attm = 1
@@ -11258,6 +11288,23 @@ PART
 	}
 	MODULE
 	{
+		name = TestFlightFailure_IgnitionFail
+		isEnabled = True
+		numIgnitions = 0
+		failed = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
 		name = TestFlightFailure_ReducedMaxThrust
 		isEnabled = True
 		failed = False
@@ -11371,7 +11418,7 @@ PART
 {
 	part = sepMotor1_4292300796
 	partName = Part
-	pos = -0.000684380531,26.4454727,-0.0772977471
+	pos = -0.000684380531,26.4107285,-0.0772977471
 	attPos = -0.0909540057,0,0.0549999475
 	attPos0 = 0.973582625,0.268295288,-0.562098444
 	rot = 0.499002218,0.0546829812,-0.86429733,0.0315712243
@@ -11384,7 +11431,7 @@ PART
 	istg = 2
 	resPri = 0
 	dstg = 4
-	sidx = 1
+	sidx = 2
 	sqor = 2
 	sepI = 0
 	attm = 1
@@ -11666,6 +11713,23 @@ PART
 	}
 	MODULE
 	{
+		name = TestFlightFailure_IgnitionFail
+		isEnabled = True
+		numIgnitions = 0
+		failed = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
 		name = TestFlightFailure_ReducedMaxThrust
 		isEnabled = True
 		failed = False
@@ -11779,7 +11843,7 @@ PART
 {
 	part = MainSailorFairingEggBlk_4290294310
 	partName = Part
-	pos = 0.366687,25.907177,0.429800749
+	pos = 0.366687,25.8724327,0.429800749
 	attPos = 0,0,0
 	attPos0 = 1.25,-0.270000458,3.74339491E-22
 	rot = 0,0,0,1
@@ -11792,7 +11856,7 @@ PART
 	istg = 0
 	resPri = 0
 	dstg = 5
-	sidx = 2
+	sidx = 3
 	sqor = 0
 	sepI = 0
 	attm = 0
@@ -11909,6 +11973,37 @@ PART
 		}
 		ACTIONS
 		{
+		}
+		UPGRADESAPPLIED
+		{
+		}
+	}
+	MODULE
+	{
+		name = ModuleToggleCrossfeed
+		isEnabled = True
+		crossfeedStatus = False
+		stagingEnabled = True
+		EVENTS
+		{
+		}
+		ACTIONS
+		{
+			ToggleAction
+			{
+				actionGroup = None
+				active = False
+			}
+			EnableAction
+			{
+				actionGroup = None
+				active = False
+			}
+			DisableAction
+			{
+				actionGroup = None
+				active = False
+			}
 		}
 		UPGRADESAPPLIED
 		{
