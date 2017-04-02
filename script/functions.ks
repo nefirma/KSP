@@ -129,7 +129,7 @@ FUNCTION getLaunchAngleOffset { //how many degrees off from nearest desired orbi
 	}
 }
 
-FUNCTION getOrbitAngle { //orbital angle relative to the north pole at current longitude
+FUNCTION getOrbitAngle { //orbital angle relative to the north pole at current latitude
 	PARAMETER _Inclination.
 	IF (ABS(LATITUDE) < ABS(_Inclination)) { RETURN ARCSIN(COS(_Inclination) / COS(LATITUDE)). }
 	ELSE { RETURN 90. }
@@ -350,4 +350,37 @@ function ReSetKUniverse
 	set KUNIVERSE:DEFAULTLOADDISTANCE:suborbital:pack to 10000.
 	set KUNIVERSE:DEFAULTLOADDISTANCE:suborbital:unpack to 200.
 	wait 0.01.
+}
+
+function circularize {
+  local th to 0. // в этой переменной будет необходимый уровень тяги
+  local Vcircdir to vxcl( up:vector, velocity:orbit ):normalized. // направление круговой скорости такое же, как у горизонтальной компоненты орбитальной скорости
+  local Vcircmag to sqrt(body:mu / body:position:mag). // mu - это гравитационный параметр планеты, произведение массы на гравитационную постоянную
+  local Vcirc to Vcircmag*Vcircdir.
+  local need_deltaV to Vcirc - velocity:orbit.
+  local ThrIsp to EngThrustIsp(). //EngThrustIsp возвращает суммарную тягу и средний Isp по всем активным двигателям.
+  local  AThr to ThrIsp[0]/(ship:mass). //Ускорение, которое сообщают ракете активные двигатели при тек. массе. 
+  
+  // начинаем прожиг, поворачивая ракету постоянно в сторону маневра
+  lock steering to lookdirup( need_deltaV, up:vector).
+  wait until vang( facing:vector, need_deltaV ) < 1. // убеждаемся, что прожиг начинается в нужной ориентации
+  lock throttle to th.
+  until need_deltaV:mag < 0.05 {
+    set Vcircdir to vxcl( up:vector, velocity:orbit ):normalized.
+    set Vcircmag to sqrt(body:mu / body:position:mag).
+    set Vcirc to Vcircmag*Vcircdir.
+    set need_deltaV to Vcirc - velocity:orbit.
+    if vang( facing:vector, need_deltaV ) > 5 { 
+      set th to 0. // если сильно не туда смотрим, надо глушить двигатель
+    }
+    else {
+     set th to min(max(need_deltaV:mag/(AThr*5), 0.0001),1). // снижаем тягу, если приращение скорости нужно небольшое
+	//      set th to min( 1, need_deltaV:mag * ship:mass / ship:availablethrust ). // снижаем тягу, если приращение скорости нужно небольшое
+    }
+    wait 0.1.
+	displayManeuverData(mN).
+  }
+  set th to 0.
+  set ship:control:pilotmainthrottle to 0.
+  unlock throttle.
 }

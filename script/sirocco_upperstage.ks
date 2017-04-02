@@ -11,9 +11,6 @@ unlock all.
 wait 1.
 
 //configuration
-// parameter orbAlt is 150. // Default target altitude 100
-// parameter _Inclination is 8.//default orbit inclination 0
-// parameter _LAN is 89. //Default LAN
 // parameter turnEnd is 47000. //Default altitude to zero pitch
 // parameter turnExp is 1.67. //Default turn expanent
 
@@ -80,7 +77,8 @@ local missionT is 0.
 local startT is 0.
 local launchT is 0.
 local head is 0.
-local glaAscending to 0.
+local glaAscending is 1.
+set glaAscending to 1.
 local atmoHeight is 0.
 
 local ascentSteer is 0.
@@ -132,10 +130,10 @@ if ship:status <> "Landed" and ship:altitude > 10000{
 	set launch to 1. 
 }
 
-// Fairing separation when above 95% of atmosphere height 
-IF SHIP:BODY:ATM:EXISTS {
-	WHEN ALTITUDE > atmoHeight()*0.95 THEN {
-		TOGGLE AG2. 
+// Fairing separation when above 50% atmosphere height and maxQ less than 0.001
+if ship:body:atm:exists {
+	when altitude > atmoHeight()*0.5 and ship:q < 0.001 then {
+		toggle AG2. 
 	}.
 }.
 
@@ -143,10 +141,13 @@ IF SHIP:BODY:ATM:EXISTS {
 if launch = 0 {
 	until ABS(getLaunchAngleOffset(_Inclination, _LAN)) < 1 OR _Inclination < LATITUDE {
 		print "Waiting for launch window... : " + getLaunchAngleOffset(_Inclination, _LAN) at (0,0).
-		Wait 4.
-		if not(warp = 3) {
-			set warp to 3.
+		Wait 2.
+		if ABS(getLaunchAngleOffset(_Inclination, _LAN)) < 2.5 and warp > 2 {
+			set warp to 0.
 		}
+//		if not(warp = 3) {
+//			set warp to 3.
+//		}
 	}
 }
 set warp to 0.
@@ -237,7 +238,7 @@ until runmode = 0 {
 			}
 		}
 	}
-	else if runmode = 5 // Deploy fairings and antenna
+	else if runmode = 5 // RESERVED
 	{
 		set runmode to 6.
 	}
@@ -245,7 +246,7 @@ until runmode = 0 {
 	{
 		set tval to 1.
 		sas off.
-		set pitch to 2. //was 0
+		set pitch to 0. 
  		if ship:apoapsis >= orbAlt  { 
 			set tval to 0.
 			set runmode to 7.
@@ -296,33 +297,10 @@ until runmode = 0 {
 			RCS ON.
 			lock steering to burnTo.
 			set runmode to 10.
-//			print " WAITING APOAPSIS...                                  "																at (1,28).
-//			wait 0.1.
 		} 
-		else  //in case we missed Apo... so make perfect circularization now
+		else  //in case we missed Apo (due to long booster landing etc. so make perfect circularization now
 		{ 
-			until StopBurn
-			{
-				set ThrIsp to EngThrustIsp(). //EngThrustIsp возвращает суммарную тягу и средний Isp по всем активным двигателям.
-				set AThr to ThrIsp[0]/(ship:mass). //Ускорение, которое сообщают ракете активные двигатели при тек. массе. 
-				set V1 to ship:velocity:orbit.		
-				set V2 to VXCL(Ship:UP:vector, ship:velocity:orbit):NORMALIZED*sqrt(ship:body:Mu/(ship:body:radius+ship:altitude)).
-				set vecCorrection to V2-V1.
-				RCS ON.
-				LOCK Steering to vecCorrection.
-				if VANG(vecCorrection, ship:facing:forevector)<0.5 {
-					if AThr>0 {
-						LOCK Throttle to  min(max(vecCorrection:MAG/(AThr*5), 0.0001),1).	
-					}
-				}
-				displayOrbitData().				
-				if vecCorrection:MAG<0.1	{
-						set StopBurn to true.
-				}
-			}
-
-			LOCK Throttle to 0.
-			set SHIP:CONTROL:PILOTMAINTHROTTLE to 0.
+			circularize().
 			UNLOCK Steering.			
 			set runmode to 12.
 		}
@@ -346,27 +324,8 @@ until runmode = 0 {
     }
 	else if runmode = 11 //Burn to raise Periapsis
 	{
-		until StopBurn
-		{
-			set tval to 1. //circularization burn
-			local Vh to VXCL(Ship:UP:vector, ship:velocity:orbit):mag.	//Horizontal velocity
-			local Vz to ship:verticalspeed. // Vertical velocity
-			local Rad to ship:body:radius+ship:altitude. // Orbit radius
-			local Vorb to sqrt(ship:body:Mu/Rad). //Vo - Orbital velocity
-			local ACentr to Vh^2/Rad. //centripetal acceleration
-			set DeltaA to gravity(ship:altitude)-ACentr-Max(Min(Vz,2),-2). //Difference between Gravity, centripetal acceleration and vertical velocity
-			local Fi to arcsin(DeltaA/shipAcc()). // Calculating pitch to preserve vertical velocity to zero. 
-			local dVh to getOrbitalVelocity(ship:altitude)-Vh. //Difference between current horizontal velocity and orbital velocity.
-			if dVh<0 { 
-				set StopBurn to true.				
-				set runmode to 12.
-			}
-			else if dVh<100		
-				set tval to Max(dVh/100, 0.01).
-
-			LOCK Steering to Heading(head, Fi). //Setting heading (to reach desired inclination) and pitch (to preserve altitude)
-			displayManeuverData(mN).
-		}
+		circularize().
+		set runmode to 12.
 	}
 	else if runmode = 12 { //Final touches
         set TVAL to 0. //Shutdown engine.
@@ -382,9 +341,14 @@ until runmode = 0 {
 	if engineFlameout() {
 		lock throttle to 0.
 		wait 0.2.
+		// Settle propellant with RCS
 		stage.
-		wait 1.
+		rcs on.
+		set ship:control:fore to 1.0.
+		wait 5.
 		lock throttle to tval.
+		rcs off.
+		set ship:control:neutralize to true.
 	}
 	if clearRequired {
 		clearscreen.
@@ -394,7 +358,7 @@ until runmode = 0 {
 	displayLaunchData().
 	
 	
-	log round((time:seconds-logtime),2) + "," + round((launchSite:POSITION - ship:geoposition:POSITION):MAG,2) + "," + round(ship:altitude,2) + "," to "testflight.csv".
+//	log round((time:seconds-logtime),2) + "," + round((launchSite:POSITION - ship:geoposition:POSITION):MAG,2) + "," + round(ship:altitude,2) + "," to "testflight.csv".
 
 // Calculating heading to reach desired inclination
 	set head to getOrbitAngle(_Inclination) - 0.115 * (90 - getOrbitAngle(_Inclination)).

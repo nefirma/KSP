@@ -40,7 +40,7 @@ print "Current Apoapsis:        " + round(ship:apoapsis / 1000, 1) + "km in " + 
 print "L. A. N. :               " + round(ORBIT:LAN) 																		at (3,23).
 print "Amount of fuel left:     " + round(FuelTank(UpperStage_tag,"check"), 1) + "  	                   "   													at (3,24).
 print "dV left:                 " + round(deltav(), 1) + " m/s                     "														at (3,25).
-print "Q      :                 " + round(ship:q,1)                                                                       			at (3,26).
+print "Q      :                 " + round(ship:q,3)                                                                       			at (3,26).
 //print "-----------------------------------------------------------"																at (1,23).
 print "                                                           "																at (1,27).
 }

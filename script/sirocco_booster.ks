@@ -218,6 +218,8 @@ until runmode = 0 {
 			wait 2. // waiting 1 second to make sure that ship has completed staging
 			FuelTank(Booster_tag,"open"). // enabling fuel again
 			rcs on.
+			set ship:control:fore to -1.0. //get clear from 2nd stage
+			wait 5.
 			set runmode to 2.
 			set clearRequired to true. // clearing screen
 		}
@@ -326,7 +328,7 @@ until runmode = 0 {
 			set VelThr_PID:setpoint to AltVel_PID:update(missionT, Vdist).
 		}
 		set tval to VelThr_PID:update(missionT, verticalspeed).
-		when ship:verticalspeed > -20 then { // when stop falling
+		when ship:verticalspeed > -25 then { // when stop falling
 			RCS on.
 			set runmode to 7.
 		}
@@ -334,7 +336,7 @@ until runmode = 0 {
 	else if runmode = 6 // Approaching at safe speed
 	{
 
-	
+	// RESERVED
 	
 	}
 	else if runmode = 7 // In case we misss a bit - powered flight to landing site 
@@ -354,7 +356,7 @@ until runmode = 0 {
 		LOCK steer to heading(steeringDir,steeringPitch).
 		steeringPIDs().
 
-		when geoDistance(SHIP:GEOPOSITION, landingSite) < 7 then { //When it is over the launch pad
+		when geoDistance(SHIP:GEOPOSITION, landingSite) < 3 then { //When it is over the launch pad
 			lock Vdist to finedist-laser_height.
 			set runmode to 8.
 		}
@@ -367,7 +369,7 @@ until runmode = 0 {
 		set northVelPID:MAXOUTPUT to 5.
 		set cardVelCached to cardVel().
 		steeringPIDs().
-		set climbPID:setPOINT to MAX((Vdist-0.5), 0.5) * -1.
+		set climbPID:setPOINT to MAX((Vdist-0.1), 0.5) * -1.
 		PRINT "climbPID:setPOINT: " + climbPID:setPOINT at(3,39).
 		set tval to climbPID:UPDATE(TIME:SECONDS, SHIP:VERTICALSPEED).
 		if (ship:status = "Landed") or (Vdist < laser_height) { // checking if we have landed already
